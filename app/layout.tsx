@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://kunalsbuild.com'),
+  metadataBase: new URL('https://custom-cursors.tech'),
   title: "kunal's build - Custom Cursor Library | 12+ Interactive Cursors",
   description: 'Discover 12+ stunning custom cursor effects for your website. Try live demos, copy code snippets (HTML, CSS, JS, React). Free cursor library with dot ring, glow orb, magnetic snap, crosshair, particle trail & more.',
   keywords: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://kunalsbuild.com',
+    url: 'https://custom-cursors.tech',
     siteName: "kunal's build",
     title: "kunal's build - Custom Cursor Library | 12+ Interactive Cursors",
     description: 'Discover 12+ stunning custom cursor effects. Try live demos, copy code snippets (HTML, CSS, JS, React). Free cursor library.',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     creator: '@kunal',
   },
   alternates: {
-    canonical: 'https://kunalsbuild.com',
+    canonical: 'https://custom-cursors.tech',
   },
   category: 'technology',
   classification: 'Web Development Tools',

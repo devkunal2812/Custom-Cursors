@@ -26,7 +26,7 @@ export default function Home() {
     '@type': 'WebApplication',
     name: "kunal's build - Custom Cursor Library",
     description: 'Interactive custom cursor library with 12+ cursor effects. Try live demos and download code snippets.',
-    url: 'https://kunalsbuild.com',
+    url: 'https://custom-cursors.tech',
     applicationCategory: 'DeveloperApplication',
     operatingSystem: 'Any',
     offers: {
@@ -61,13 +61,13 @@ export default function Home() {
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://kunalsbuild.com',
+        item: 'https://custom-cursors.tech',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Custom Cursors',
-        item: 'https://kunalsbuild.com#cursors',
+        item: 'https://custom-cursors.tech#cursors',
       },
     ],
   };

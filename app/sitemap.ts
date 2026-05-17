@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://kunalsbuild.com';
+  const baseUrl = 'https://custom-cursors.tech';
   
   // Main pages
   const routes = [

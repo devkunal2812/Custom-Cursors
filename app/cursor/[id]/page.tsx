@@ -35,20 +35,6 @@ export default function CursorPage({ params }: { params: { id: string } }) {
         </div>
       </div>
 
-      <div className={styles.preview}>
-        <h2>Live Preview</h2>
-        <div 
-          className={styles.previewBox}
-          style={{ '--cursor-color': cursor.accent } as React.CSSProperties}
-        >
-          <div 
-            className={styles.previewCursor}
-            dangerouslySetInnerHTML={{ __html: cursor.preview }}
-          />
-          <p className={styles.previewHint}>Hover to see cursor effect</p>
-        </div>
-      </div>
-
       <div className={styles.codeSection}>
         <div className={styles.tabs}>
           <button className={`${styles.tab} ${styles.active}`}>HTML</button>
