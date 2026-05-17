@@ -1,16 +1,22 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
+import CursorWrapper from '@/components/CursorWrapper';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import styles from './docs.module.css';
 
-export const metadata = {
-  title: 'Documentation - Custom Cursor Library',
-  description: 'Complete documentation for implementing custom cursors on your website',
-};
-
 export default function DocsPage() {
+  const [activeCursor] = useState<string>('dot-ring');
+
   return (
-    <div className={styles.container}>
-      <div className={styles.sidebar}>
-        <Link href="/" className={styles.backLink}>← Back to Home</Link>
+    <>
+      <CursorWrapper activeCursor={activeCursor} />
+      <Header />
+      <div className={styles.container}>
+        <div className={styles.sidebar}>
+          <Link href="/" className={styles.backLink}>← Back to Home</Link>
         
         <nav className={styles.nav}>
           <h3>Getting Started</h3>
@@ -260,5 +266,7 @@ export function CustomCursor() {
         </div>
       </main>
     </div>
+    <Footer />
+    </>
   );
 }

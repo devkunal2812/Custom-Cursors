@@ -1,38 +1,27 @@
+'use client';
+
+import { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CURSORS } from '@/data/cursors';
+import CursorWrapper from '@/components/CursorWrapper';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import styles from './cursor.module.css';
-
-export async function generateStaticParams() {
-  return CURSORS.map((cursor) => ({
-    id: cursor.id,
-  }));
-}
-
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  const cursor = CURSORS.find((c) => c.id === params.id);
-  
-  if (!cursor) {
-    return {
-      title: 'Cursor Not Found',
-    };
-  }
-
-  return {
-    title: `${cursor.name} - Custom Cursor Library`,
-    description: cursor.desc,
-  };
-}
 
 export default function CursorPage({ params }: { params: { id: string } }) {
   const cursor = CURSORS.find((c) => c.id === params.id);
+  const [activeCursor] = useState<string>(params.id);
 
   if (!cursor) {
     notFound();
   }
 
   return (
-    <div className={styles.container}>
+    <>
+      <CursorWrapper activeCursor={activeCursor} />
+      <Header />
+      <div className={styles.container}>
       <div className={styles.header}>
         <Link href="/" className={styles.backLink}>← Back to Home</Link>
         <h1 className={styles.title}>{cursor.name}</h1>
@@ -168,5 +157,7 @@ export default function CursorPage({ params }: { params: { id: string } }) {
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   );
 }
