@@ -25,9 +25,7 @@
 
 ## 🎬 Demo
 
-**Live Site:** [kunalsbuild.com](https://kunalsbuild.com) *(update with your domain)*
-
-![Custom Cursor Demo](./demo.gif) *(add a demo gif)*
+**Live Site:** [custom-cursors.tech](https://custom-cursors.tech)
 
 ---
 
@@ -252,8 +250,9 @@ If you found this project helpful, please give it a ⭐ on GitHub!
 
 ## 🗺️ Roadmap
 
-- [ ] Add more cursor effects (20+ total)
-- [ ] Create individual cursor detail pages
+- [x] Add more cursor effects (12+ total)
+- [x] Create individual cursor detail pages
+- [x] Add documentation page
 - [ ] Add video tutorials
 - [ ] Implement cursor customizer tool
 - [ ] Add dark/light theme toggle
@@ -263,4 +262,4 @@ If you found this project helpful, please give it a ⭐ on GitHub!
 
 ---
 
-**Made with 💙 by Kunal**
+**Made with 💙 by Kunal | Visit: [custom-cursors.tech](https://custom-cursors.tech)**

@@ -4,7 +4,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://kunalsbuild.com/sitemap.xml
+Sitemap: https://custom-cursors.tech/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 0
