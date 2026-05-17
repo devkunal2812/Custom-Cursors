@@ -7,29 +7,15 @@ import Hero from '@/components/Hero';
 import Footer from '@/components/Footer';
 import CursorGrid from '@/components/CursorGrid';
 import DemoZone from '@/components/DemoZone';
-import CodeModal from '@/components/CodeModal';
 import CursorWrapper from '@/components/CursorWrapper';
 import { CURSORS } from '@/data/cursors';
-import type { CursorDefinition } from '@/types/cursor';
 import styles from './page.module.css';
 
 export default function Home() {
   const [activeCursor, setActiveCursor] = useState<string>('dot-ring');
-  const [modalCursor, setModalCursor] = useState<CursorDefinition | null>(null);
 
   const handleTryCursor = (cursorId: string) => {
     setActiveCursor(cursorId);
-  };
-
-  const handleOpenModal = (cursorId: string) => {
-    const cursor = CURSORS.find(c => c.id === cursorId);
-    if (cursor) {
-      setModalCursor(cursor);
-    }
-  };
-
-  const handleCloseModal = () => {
-    setModalCursor(null);
   };
 
   const activeCursorData = CURSORS.find(c => c.id === activeCursor);
@@ -148,26 +134,28 @@ export default function Home() {
       <Header />
       <main className={styles.main}>
         <Hero />
-        <DemoZone activeCursorName={activeCursorData?.name || 'Dot + Ring'} />
-        <section id="cursors" className={styles.sectionLabel}>
-          <div>
-            <h2>Choose a Cursor</h2>
-          </div>
-          <p>
-            Click <strong>Try</strong> to activate · <strong>Code</strong> to download
+        
+        <section id="cursors" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Custom Cursor Library</h2>
+          <p className={styles.sectionSubtitle}>
+            12+ interactive cursor effects - copy, paste, ship.
           </p>
+          
+          <CursorGrid
+            cursors={CURSORS}
+            activeCursor={activeCursor}
+            onTryCursor={handleTryCursor}
+          />
+          
+          <div className={styles.footerDivider}></div>
+          <div className={styles.footer}>
+            Free · Open Source · Zero Dependencies
+          </div>
         </section>
-        <CursorGrid
-          cursors={CURSORS}
-          activeCursor={activeCursor}
-          onTryCursor={handleTryCursor}
-          onOpenModal={handleOpenModal}
-        />
+        
+        <DemoZone activeCursorName={activeCursorData?.name || 'Dot + Ring'} />
       </main>
       <Footer />
-      {modalCursor && (
-        <CodeModal cursor={modalCursor} onClose={handleCloseModal} />
-      )}
     </>
   );
 }

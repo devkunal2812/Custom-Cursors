@@ -6,10 +6,9 @@ interface CursorGridProps {
   cursors: CursorDefinition[];
   activeCursor: string;
   onTryCursor: (cursorId: string) => void;
-  onOpenModal: (cursorId: string) => void;
 }
 
-export default function CursorGrid({ cursors, activeCursor, onTryCursor, onOpenModal }: CursorGridProps) {
+export default function CursorGrid({ cursors, activeCursor, onTryCursor }: CursorGridProps) {
   return (
     <div className={styles.cursorGrid}>
       {cursors.map((cursor, index) => (
@@ -18,7 +17,6 @@ export default function CursorGrid({ cursors, activeCursor, onTryCursor, onOpenM
             cursor={cursor}
             isActive={activeCursor === cursor.id}
             onTry={() => onTryCursor(cursor.id)}
-            onCode={() => onOpenModal(cursor.id)}
           />
         </div>
       ))}

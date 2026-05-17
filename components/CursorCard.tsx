@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { CursorDefinition } from '@/types/cursor';
 import styles from './CursorCard.module.css';
 
@@ -5,10 +6,9 @@ interface CursorCardProps {
   cursor: CursorDefinition;
   isActive: boolean;
   onTry: () => void;
-  onCode: () => void;
 }
 
-export default function CursorCard({ cursor, isActive, onTry, onCode }: CursorCardProps) {
+export default function CursorCard({ cursor, isActive, onTry }: CursorCardProps) {
   return (
     <article
       className={`${styles.cursorCard} ${isActive ? styles.active : ''} cursor-card`}
@@ -44,13 +44,13 @@ export default function CursorCard({ cursor, isActive, onTry, onCode }: CursorCa
           >
             Try It
           </button>
-          <button 
-            className={styles.btnCode} 
-            onClick={onCode}
+          <Link 
+            href={`/cursor/${cursor.id}`}
+            className={styles.btnCode}
             aria-label={`View code for ${cursor.name} cursor`}
           >
             {'{ }'} Code
-          </button>
+          </Link>
         </div>
       </div>
     </article>
