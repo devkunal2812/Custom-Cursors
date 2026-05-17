@@ -1,7 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 import styles from './Header.module.css';
 
 export default function Header() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.logo}>Kunal's Build</Link>
@@ -9,7 +18,9 @@ export default function Header() {
         <Link href="/" className={styles.navLink}>Home</Link>
         <a href="/#cursors" className={styles.navLink}>Cursors</a>
         <Link href="/docs" className={styles.navLink}>Docs</Link>
-        <a href="https://github.com/devkunal2812/Custom-Cursors" className={styles.navLink} target="_blank" rel="noopener noreferrer">GitHub</a>
+        <button onClick={scrollToTop} className={styles.backToTop}>
+          ↑ Back to Top
+        </button>
       </nav>
     </header>
   );
