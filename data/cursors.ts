@@ -1442,6 +1442,70 @@ export function SpotlightCursor() {
   );
 }`,
 
+    vue: `<!-- SpotlightCursor.vue -->
+<!-- Usage: <SpotlightCursor /> in your Vue 3 app -->
+<!-- Best on dark backgrounds -->
+<template>
+  <div ref="spotEl" class="cursor-spot" />
+  <div ref="coreEl" class="cursor-core" />
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const spotEl = ref<HTMLElement | null>(null);
+const coreEl = ref<HTMLElement | null>(null);
+
+function onMove(e: MouseEvent) {
+  spotEl.value!.style.left = e.clientX + 'px';
+  spotEl.value!.style.top = e.clientY + 'px';
+  coreEl.value!.style.left = e.clientX + 'px';
+  coreEl.value!.style.top = e.clientY + 'px';
+}
+
+function onEnter() {
+  spotEl.value!.style.width = '300px';
+  spotEl.value!.style.height = '300px';
+}
+
+function onLeave() {
+  spotEl.value!.style.width = '180px';
+  spotEl.value!.style.height = '180px';
+}
+
+onMounted(() => {
+  document.body.style.cursor = 'none';
+  document.addEventListener('mousemove', onMove);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
+  });
+});
+
+onUnmounted(() => {
+  document.body.style.cursor = '';
+  document.removeEventListener('mousemove', onMove);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.removeEventListener('mouseenter', onEnter);
+    el.removeEventListener('mouseleave', onLeave);
+  });
+});
+</script>
+
+<style scoped>
+.cursor-spot {
+  position: fixed; width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(229,231,235,0.12) 0%, transparent 70%);
+  border-radius: 50%; pointer-events: none; z-index: 99990;
+  transform: translate(-50%,-50%); transition: width .4s, height .4s;
+}
+.cursor-core {
+  position: fixed; width: 8px; height: 8px;
+  background: rgba(229,231,235,0.9); border-radius: 50%;
+  pointer-events: none; z-index: 99999; transform: translate(-50%,-50%);
+}
+</style>`,
+
     init(wrap: HTMLElement) {
       wrap.innerHTML = `
         <div id="cspot" style="position:fixed;width:200px;height:200px;background:radial-gradient(circle,rgba(229,231,235,0.1) 0%,transparent 70%);border-radius:50%;pointer-events:none;z-index:99990;transform:translate(-50%,-50%);transition:width .4s,height .4s"></div>

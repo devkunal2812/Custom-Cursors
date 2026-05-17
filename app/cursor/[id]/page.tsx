@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CURSORS } from '@/data/cursors';
+import { VUE_IMPLEMENTATIONS } from '@/data/vue-implementations';
 import CursorWrapper from '@/components/CursorWrapper';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -36,9 +37,10 @@ export default function CursorPage({ params }: { params: { id: string } }) {
       case 'react':
         return cursor.react;
       case 'vue':
-        return cursor.vue || `<!-- Vue implementation coming soon! -->
+        // First check if cursor has vue field, otherwise fetch from VUE_IMPLEMENTATIONS
+        return cursor.vue || VUE_IMPLEMENTATIONS[cursor.id] || `<!-- Vue implementation coming soon! -->
 <!-- For now, you can adapt the React code above to Vue 3 Composition API -->
-<!-- Or check the data/vue.ts file in the repository for reference implementations -->
+<!-- Or check the data/vue-implementations.ts file in the repository for reference implementations -->
 
 <template>
   <!-- Vue component template will go here -->
@@ -48,7 +50,7 @@ export default function CursorPage({ params }: { params: { id: string } }) {
 import { ref, onMounted, onUnmounted } from 'vue';
 
 // Component logic here
-// See data/vue.ts for complete implementations
+// See data/vue-implementations.ts for complete implementations
 </script>
 
 <style scoped>
