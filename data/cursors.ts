@@ -465,8 +465,6 @@ document.addEventListener('click', e => {
       wrap.appendChild(canvas); wrap.appendChild(dot);
       const ctx = canvas.getContext('2d')!;
       let W: number, H: number;
-      interface Ripple { x: number; y: number; r: number; life: number; maxR: number; }
-      let ripples: Ripple[] = [];
       const resize = () => { W = canvas.width = innerWidth; H = canvas.height = innerHeight }; resize(); window.addEventListener('resize', resize);
       const MAX_RADIUS = 80;
       class R { 
@@ -498,6 +496,7 @@ document.addEventListener('click', e => {
           ctx.restore();
         } 
       }
+      let ripples: R[] = [];
       let lx = 0, ly = 0, lt = 0;
       document.onmousemove = e => { 
         dot.style.left = e.clientX + 'px'; 
