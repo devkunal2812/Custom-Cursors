@@ -28,7 +28,7 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 3.5rem;
   margin: 0 0 1rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .description {
@@ -62,7 +62,7 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2rem;
   margin: 0 0 1.5rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .previewBox {
@@ -187,7 +187,7 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2rem;
   margin: 0 0 1.5rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .steps {
@@ -254,7 +254,7 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2rem;
   margin: 0 0 1.5rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .customGrid {
@@ -310,7 +310,7 @@
   font-family: 'Bebas Neue', sans-serif;
   font-size: 2rem;
   margin: 0 0 1.5rem;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .cursorGrid {

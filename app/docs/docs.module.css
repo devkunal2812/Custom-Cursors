@@ -71,6 +71,8 @@
   font-size: 48px;
   margin-bottom: 10px;
   color: var(--text);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .lead {
@@ -95,6 +97,8 @@
   margin-bottom: 20px;
   color: var(--text);
   scroll-margin-top: 100px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .section h3 {

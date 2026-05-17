@@ -116,9 +116,117 @@ document.addEventListener('mousemove', e => {
           </div>
         </section>
         
+        <section id="dot-ring" className={styles.section}>
+          <h2>Dot + Ring</h2>
+          <p>A classic two-part cursor with a small dot and a smooth following ring. Perfect for modern, minimal designs.</p>
+          
+          <h3>Features</h3>
+          <ul className={styles.tipsList}>
+            <li>Smooth lag effect on the ring for natural movement</li>
+            <li>Scales up on hover over interactive elements</li>
+            <li>Lightweight and performant</li>
+            <li>Easy to customize colors and sizes</li>
+          </ul>
+          
+          <h3>Best For</h3>
+          <p>Portfolio websites, landing pages, creative agencies, and modern web applications.</p>
+        </section>
+        
+        <section id="glow-orb" className={styles.section}>
+          <h2>Glow Orb</h2>
+          <p>A glowing orb with a radial gradient and blur effect that creates an ethereal, futuristic look.</p>
+          
+          <h3>Features</h3>
+          <ul className={styles.tipsList}>
+            <li>Radial gradient with customizable colors</li>
+            <li>CSS blur filter for soft glow effect</li>
+            <li>Smooth transitions and animations</li>
+            <li>Expands on hover over clickable elements</li>
+          </ul>
+          
+          <h3>Best For</h3>
+          <p>Tech startups, SaaS products, gaming websites, and futuristic designs.</p>
+        </section>
+        
+        <section id="magnetic" className={styles.section}>
+          <h2>Magnetic Snap</h2>
+          <p>An interactive cursor that magnetically snaps to buttons and links, creating an engaging user experience.</p>
+          
+          <h3>Features</h3>
+          <ul className={styles.tipsList}>
+            <li>Automatically detects interactive elements</li>
+            <li>Smooth magnetic pull effect</li>
+            <li>Customizable snap distance and strength</li>
+            <li>Works with buttons, links, and custom elements</li>
+          </ul>
+          
+          <h3>Best For</h3>
+          <p>Interactive portfolios, product showcases, and websites with prominent CTAs.</p>
+          
+          <h3>Customization</h3>
+          <div className={styles.codeBlock}>
+            <pre>{`// Adjust magnetic strength
+const magneticStrength = 0.3; // 0.1 to 0.5
+
+// Change snap distance
+const snapDistance = 100; // pixels`}</pre>
+          </div>
+        </section>
+        
+        <section id="crosshair" className={styles.section}>
+          <h2>Crosshair</h2>
+          <p>A precision crosshair cursor with horizontal and vertical lines, perfect for gaming or technical interfaces.</p>
+          
+          <h3>Features</h3>
+          <ul className={styles.tipsList}>
+            <li>Full-width and full-height crosshair lines</li>
+            <li>Central dot for precise targeting</li>
+            <li>Customizable line thickness and color</li>
+            <li>Optional opacity and blur effects</li>
+          </ul>
+          
+          <h3>Best For</h3>
+          <p>Gaming websites, design tools, photo editors, and technical applications.</p>
+        </section>
+        
+        <section id="trail" className={styles.section}>
+          <h2>Particle Trail</h2>
+          <p>A dynamic cursor that leaves a trail of particles behind, creating a magical, interactive effect.</p>
+          
+          <h3>Features</h3>
+          <ul className={styles.tipsList}>
+            <li>Animated particles with fade-out effect</li>
+            <li>Customizable particle count and lifetime</li>
+            <li>Multiple color options</li>
+            <li>Optimized for performance</li>
+          </ul>
+          
+          <h3>Best For</h3>
+          <p>Creative portfolios, art galleries, entertainment sites, and playful designs.</p>
+          
+          <h3>Performance Note</h3>
+          <p>Limit particle count to 10-15 for optimal performance. Use <code>requestAnimationFrame</code> for smooth animations.</p>
+        </section>
+        
+        <section id="morph" className={styles.section}>
+          <h2>Morphing Blob</h2>
+          <p>An organic, shape-shifting cursor that morphs and changes as you move, creating a fluid, dynamic effect.</p>
+          
+          <h3>Features</h3>
+          <ul className={styles.tipsList}>
+            <li>SVG-based morphing animation</li>
+            <li>Smooth transitions between shapes</li>
+            <li>Customizable colors and sizes</li>
+            <li>Responds to movement speed</li>
+          </ul>
+          
+          <h3>Best For</h3>
+          <p>Experimental designs, creative agencies, art projects, and unique brand experiences.</p>
+        </section>
+        
         <section id="customization" className={styles.section}>
           <h2>Customization</h2>
-          <p>Easily customize colors, sizes, and animations:</p>
+          <p>Easily customize colors, sizes, and animations for any cursor:</p>
           
           <h3>Change Colors</h3>
           <div className={styles.codeBlock}>
@@ -142,6 +250,17 @@ document.addEventListener('mousemove', e => {
   width: 40px;  /* Larger ring */
   height: 40px;
 }`}</pre>
+          </div>
+          
+          <h3>Modify Animation Speed</h3>
+          <div className={styles.codeBlock}>
+            <pre>{`/* CSS transition speed */
+#cursor-ring {
+  transition: all 0.15s ease-out; /* Faster */
+}
+
+/* JavaScript lag effect */
+const lag = 0.1; // Lower = faster, Higher = slower`}</pre>
           </div>
         </section>
         
