@@ -58,9 +58,7 @@ export default function Hero() {
         <div className={styles.buttons}>
           <button className={styles.btn} style={{ background: '#60a5fa' }}></button>
           <button className={styles.btn} style={{ background: '#a78bfa' }}></button>
-          <button className={styles.btn} style={{ background: '#34d399' }}>
-            <div className={styles.btnCursor}></div>
-          </button>
+          <button className={styles.btn} style={{ background: '#34d399' }}></button>
         </div>
       </div>
     </section>
