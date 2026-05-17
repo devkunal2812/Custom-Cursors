@@ -1,0 +1,16 @@
+.cursorGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.cursorGrid > * {
+  animation-delay: calc(var(--index, 0) * 0.05s);
+}
+
+@media (max-width: 768px) {
+  .cursorGrid {
+    grid-template-columns: 1fr;
+  }
+}
