@@ -5,6 +5,16 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://custom-cursors.tech'),
   title: "Kunal's Build - Custom Cursor Library | 12+ Interactive Cursors",
   description: 'Discover 12+ stunning custom cursor effects for your website. Try live demos, copy code snippets (HTML, CSS, JS, React). Free cursor library with dot ring, glow orb, magnetic snap, crosshair, particle trail & more.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/manifest.json',
   keywords: [
     'custom cursor',
     'cursor effects',
@@ -82,9 +92,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0a0a0f" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
