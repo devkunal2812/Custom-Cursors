@@ -45,6 +45,85 @@
   transform: scale(1);
 }
 
+@media (max-width: 768px) {
+  .cursorCard {
+    border-radius: 12px;
+  }
+  
+  .cardPreview {
+    height: 140px;
+  }
+  
+  .cardBody {
+    padding: 16px;
+  }
+  
+  .cardName {
+    font-size: 15px;
+  }
+  
+  .cardDesc {
+    font-size: 12px;
+    min-height: 36px;
+  }
+  
+  .cardTag {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
+  
+  .btnTry,
+  .btnCode {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cardPreview {
+    height: 120px;
+  }
+  
+  .cardBody {
+    padding: 14px;
+  }
+  
+  .cardName {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .cardDesc {
+    font-size: 11px;
+    min-height: 32px;
+    margin-bottom: 12px;
+  }
+  
+  .cardTags {
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .cardTag {
+    font-size: 8px;
+    padding: 2px 5px;
+  }
+  
+  .cardActions {
+    gap: 6px;
+  }
+  
+  .btnTry {
+    padding: 8px 0;
+    font-size: 11px;
+  }
+  
+  .btnCode {
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+}
+
 .cardPreview {
   height: 180px;
   display: flex;

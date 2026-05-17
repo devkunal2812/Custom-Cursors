@@ -193,6 +193,12 @@
 @media (max-width: 768px) {
   .hero {
     padding: 80px 20px;
+    min-height: auto;
+  }
+  
+  /* Hide floating cursors on mobile for better performance */
+  .floatingCursors {
+    display: none;
   }
   
   .cursorRing {
@@ -223,12 +229,54 @@
     width: 50px;
   }
   
+  .title {
+    font-size: clamp(36px, 8vw, 72px);
+  }
+  
+  .subtitle {
+    font-size: clamp(14px, 4vw, 20px);
+  }
+  
   .buttons {
     flex-wrap: wrap;
+    gap: 12px;
   }
   
   .btn {
     width: 100px;
     height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 60px 16px;
+  }
+  
+  .brand {
+    font-size: 12px;
+  }
+  
+  .brand::before,
+  .brand::after {
+    display: none;
+  }
+  
+  .title {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .subtitle {
+    font-size: 14px;
+  }
+  
+  .buttons {
+    width: 100%;
+  }
+  
+  .btn {
+    flex: 1;
+    min-width: 80px;
   }
 }
