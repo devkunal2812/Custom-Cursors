@@ -158,6 +158,12 @@
   background: rgba(96, 165, 250, 0.2);
 }
 
+.copyBtn.copied {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #34d399;
+}
+
 .code {
   margin: 0;
   padding: 1.5rem;

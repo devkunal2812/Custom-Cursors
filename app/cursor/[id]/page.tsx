@@ -12,138 +12,162 @@ import styles from './cursor.module.css';
 export default function CursorPage({ params }: { params: { id: string } }) {
   const cursor = CURSORS.find((c) => c.id === params.id);
   const [activeCursor] = useState<string>(params.id);
+  const [activeTab, setActiveTab] = useState<'html' | 'css' | 'js' | 'react'>('html');
+  const [copied, setCopied] = useState(false);
 
   if (!cursor) {
     notFound();
   }
+
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const getCodeForTab = () => {
+    switch (activeTab) {
+      case 'html':
+        return cursor.html;
+      case 'css':
+        return cursor.css;
+      case 'js':
+        return cursor.js;
+      case 'react':
+        return cursor.react;
+      default:
+        return cursor.html;
+    }
+  };
 
   return (
     <>
       <CursorWrapper activeCursor={activeCursor} />
       <Header />
       <div className={styles.container}>
-      <div className={styles.header}>
-        <Link href="/" className={styles.backLink}>← Back to Home</Link>
-        <h1 className={styles.title}>{cursor.name}</h1>
-        <p className={styles.description}>{cursor.desc}</p>
-        <div className={styles.tags}>
-          {cursor.tags.map((tag) => (
-            <span key={tag} className={styles.tag}>
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      <div className={styles.codeSection}>
-        <div className={styles.tabs}>
-          <button className={`${styles.tab} ${styles.active}`}>HTML</button>
-          <button className={styles.tab}>CSS</button>
-          <button className={styles.tab}>JavaScript</button>
-          <button className={styles.tab}>React</button>
-        </div>
-
-        <div className={styles.codeBlock}>
-          <div className={styles.codeHeader}>
-            <span>HTML</span>
-            <button className={styles.copyBtn}>Copy</button>
+        <div className={styles.header}>
+          <Link href="/" className={styles.backLink}>← Back to Home</Link>
+          <h1 className={styles.title}>{cursor.name}</h1>
+          <p className={styles.description}>{cursor.desc}</p>
+          <div className={styles.tags}>
+            {cursor.tags.map((tag) => (
+              <span key={tag} className={styles.tag}>
+                {tag}
+              </span>
+            ))}
           </div>
-          <pre className={styles.code}>{cursor.html}</pre>
         </div>
 
-        <div className={styles.codeBlock}>
-          <div className={styles.codeHeader}>
-            <span>CSS</span>
-            <button className={styles.copyBtn}>Copy</button>
+        <div className={styles.codeSection}>
+          <div className={styles.tabs}>
+            <button 
+              className={`${styles.tab} ${activeTab === 'html' ? styles.active : ''}`}
+              onClick={() => setActiveTab('html')}
+            >
+              HTML
+            </button>
+            <button 
+              className={`${styles.tab} ${activeTab === 'css' ? styles.active : ''}`}
+              onClick={() => setActiveTab('css')}
+            >
+              CSS
+            </button>
+            <button 
+              className={`${styles.tab} ${activeTab === 'js' ? styles.active : ''}`}
+              onClick={() => setActiveTab('js')}
+            >
+              JavaScript
+            </button>
+            <button 
+              className={`${styles.tab} ${activeTab === 'react' ? styles.active : ''}`}
+              onClick={() => setActiveTab('react')}
+            >
+              React
+            </button>
           </div>
-          <pre className={styles.code}>{cursor.css}</pre>
-        </div>
 
-        <div className={styles.codeBlock}>
-          <div className={styles.codeHeader}>
-            <span>JavaScript</span>
-            <button className={styles.copyBtn}>Copy</button>
+          <div className={styles.codeBlock}>
+            <div className={styles.codeHeader}>
+              <span>{activeTab.toUpperCase()}</span>
+              <button 
+                className={`${styles.copyBtn} ${copied ? styles.copied : ''}`}
+                onClick={() => handleCopy(getCodeForTab())}
+              >
+                {copied ? '✓ Copied!' : 'Copy'}
+              </button>
+            </div>
+            <pre className={styles.code}>{getCodeForTab()}</pre>
           </div>
-          <pre className={styles.code}>{cursor.js}</pre>
         </div>
 
-        <div className={styles.codeBlock}>
-          <div className={styles.codeHeader}>
-            <span>React</span>
-            <button className={styles.copyBtn}>Copy</button>
-          </div>
-          <pre className={styles.code}>{cursor.react}</pre>
+        <div className={styles.usage}>
+          <h2>How to Use</h2>
+          <ol className={styles.steps}>
+            <li>
+              <strong>Copy the HTML</strong>
+              <p>Add the HTML structure before your closing <code>&lt;/body&gt;</code> tag</p>
+            </li>
+            <li>
+              <strong>Add the CSS</strong>
+              <p>Include the CSS in your stylesheet or <code>&lt;style&gt;</code> tag</p>
+            </li>
+            <li>
+              <strong>Include the JavaScript</strong>
+              <p>Add the JavaScript code in a <code>&lt;script&gt;</code> tag or external file</p>
+            </li>
+            <li>
+              <strong>Test it out</strong>
+              <p>Move your mouse to see the custom cursor in action!</p>
+            </li>
+          </ol>
         </div>
-      </div>
 
-      <div className={styles.usage}>
-        <h2>How to Use</h2>
-        <ol className={styles.steps}>
-          <li>
-            <strong>Copy the HTML</strong>
-            <p>Add the HTML structure before your closing <code>&lt;/body&gt;</code> tag</p>
-          </li>
-          <li>
-            <strong>Add the CSS</strong>
-            <p>Include the CSS in your stylesheet or <code>&lt;style&gt;</code> tag</p>
-          </li>
-          <li>
-            <strong>Include the JavaScript</strong>
-            <p>Add the JavaScript code in a <code>&lt;script&gt;</code> tag or external file</p>
-          </li>
-          <li>
-            <strong>Test it out</strong>
-            <p>Move your mouse to see the custom cursor in action!</p>
-          </li>
-        </ol>
-      </div>
-
-      <div className={styles.customization}>
-        <h2>Customization</h2>
-        <div className={styles.customGrid}>
-          <div className={styles.customCard}>
-            <h3>Change Color</h3>
-            <p>Update the color values in CSS to match your brand</p>
-            <div className={styles.colorExample}>
-              <div className={styles.colorSwatch} style={{ background: cursor.accent }}></div>
-              <code>{cursor.accent}</code>
+        <div className={styles.customization}>
+          <h2>Customization</h2>
+          <div className={styles.customGrid}>
+            <div className={styles.customCard}>
+              <h3>Change Color</h3>
+              <p>Update the color values in CSS to match your brand</p>
+              <div className={styles.colorExample}>
+                <div className={styles.colorSwatch} style={{ background: cursor.accent }}></div>
+                <code>{cursor.accent}</code>
+              </div>
+            </div>
+            <div className={styles.customCard}>
+              <h3>Adjust Size</h3>
+              <p>Modify width and height properties to scale the cursor</p>
+            </div>
+            <div className={styles.customCard}>
+              <h3>Animation Speed</h3>
+              <p>Change transition duration values for faster/slower animations</p>
             </div>
           </div>
-          <div className={styles.customCard}>
-            <h3>Adjust Size</h3>
-            <p>Modify width and height properties to scale the cursor</p>
-          </div>
-          <div className={styles.customCard}>
-            <h3>Animation Speed</h3>
-            <p>Change transition duration values for faster/slower animations</p>
-          </div>
         </div>
-      </div>
 
-      <div className={styles.navigation}>
-        <h2>Explore More Cursors</h2>
-        <div className={styles.cursorGrid}>
-          {CURSORS.filter((c) => c.id !== cursor.id)
-            .slice(0, 3)
-            .map((c) => (
-              <Link 
-                key={c.id} 
-                href={`/cursor/${c.id}`}
-                className={styles.cursorCard}
-                style={{ '--card-color': c.accent } as React.CSSProperties}
-              >
-                <div 
-                  className={styles.cardPreview}
-                  dangerouslySetInnerHTML={{ __html: c.preview }}
-                />
-                <h3>{c.name}</h3>
-                <p>{c.desc}</p>
-              </Link>
-            ))}
+        <div className={styles.navigation}>
+          <h2>Explore More Cursors</h2>
+          <div className={styles.cursorGrid}>
+            {CURSORS.filter((c) => c.id !== cursor.id)
+              .slice(0, 3)
+              .map((c) => (
+                <Link 
+                  key={c.id} 
+                  href={`/cursor/${c.id}`}
+                  className={styles.cursorCard}
+                  style={{ '--card-color': c.accent } as React.CSSProperties}
+                >
+                  <div 
+                    className={styles.cardPreview}
+                    dangerouslySetInnerHTML={{ __html: c.preview }}
+                  />
+                  <h3>{c.name}</h3>
+                  <p>{c.desc}</p>
+                </Link>
+              ))}
+          </div>
         </div>
       </div>
-    </div>
-    <Footer />
+      <Footer />
     </>
   );
 }
