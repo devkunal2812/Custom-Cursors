@@ -69,8 +69,8 @@ export const metadata: Metadata = {
   },
   category: 'technology',
   classification: 'Web Development Tools',
-  other: {
-    'google-site-verification': 'your-verification-code-here',
+  verification: {
+    google: 'c7d24ad5a15fdd50',
   },
 };
 
