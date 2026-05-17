@@ -24,7 +24,7 @@ export default function Home() {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: "kunal's build - Custom Cursor Library",
+    name: "Kunal's Build - Custom Cursor Library",
     description: 'Interactive custom cursor library with 12+ cursor effects. Try live demos and download code snippets.',
     url: 'https://custom-cursors.tech',
     applicationCategory: 'DeveloperApplication',

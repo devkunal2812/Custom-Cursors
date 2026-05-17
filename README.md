@@ -1,4 +1,4 @@
-# 🎨 kunal's build - Custom Cursor Library
+# 🎨 Kunal's Build - Custom Cursor Library
 
 > **12+ stunning custom cursor effects for modern websites**  
 > Try live demos · Copy code snippets · Zero dependencies

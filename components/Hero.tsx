@@ -46,7 +46,7 @@ export default function Hero() {
 
       {/* Main content */}
       <div className={styles.content}>
-        <div className={styles.brand}>kunal's build</div>
+        <div className={styles.brand}>Kunal's Build</div>
         <h1 className={styles.title}>
           Custom Cursor
           <br />

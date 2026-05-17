@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://custom-cursors.tech'),
-  title: "kunal's build - Custom Cursor Library | 12+ Interactive Cursors",
+  title: "Kunal's Build - Custom Cursor Library | 12+ Interactive Cursors",
   description: 'Discover 12+ stunning custom cursor effects for your website. Try live demos, copy code snippets (HTML, CSS, JS, React). Free cursor library with dot ring, glow orb, magnetic snap, crosshair, particle trail & more.',
   keywords: [
     'custom cursor',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Kunal' }],
   creator: 'Kunal',
-  publisher: "kunal's build",
+  publisher: "Kunal's Build",
   robots: {
     index: true,
     follow: true,
@@ -45,21 +45,21 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://custom-cursors.tech',
-    siteName: "kunal's build",
-    title: "kunal's build - Custom Cursor Library | 12+ Interactive Cursors",
+    siteName: "Kunal's Build",
+    title: "Kunal's Build - Custom Cursor Library | 12+ Interactive Cursors",
     description: 'Discover 12+ stunning custom cursor effects. Try live demos, copy code snippets (HTML, CSS, JS, React). Free cursor library.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: "kunal's build - Custom Cursor Library",
+        alt: "Kunal's Build - Custom Cursor Library",
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: "kunal's build - Custom Cursor Library | 12+ Interactive Cursors",
+    title: "Kunal's Build - Custom Cursor Library | 12+ Interactive Cursors",
     description: 'Discover 12+ stunning custom cursor effects. Try live demos, copy code snippets (HTML, CSS, JS, React).',
     images: ['/og-image.png'],
     creator: '@kunal',
