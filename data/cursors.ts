@@ -1046,6 +1046,68 @@ export function TrailCursor({ color = '#fbbf24', count = 12 }) {
   return null; // this component injects DOM nodes directly
 }`,
 
+    vue: `<!-- TrailCursor.vue -->
+<!-- Usage: <TrailCursor /> in your Vue 3 app -->
+<script setup lang="ts">
+import { onMounted, onUnmounted } from 'vue';
+
+const props = withDefaults(defineProps<{ color?: string; count?: number }>(), {
+  color: '#fbbf24',
+  count: 12
+});
+
+onMounted(() => {
+  document.body.style.cursor = 'none';
+
+  const cx = window.innerWidth / 2;
+  const cy = window.innerHeight / 2;
+  const pos = Array.from({ length: props.count }, () => ({ x: cx, y: cy }));
+  const dots: HTMLElement[] = [];
+
+  for (let i = 0; i < props.count; i++) {
+    const d = document.createElement('div');
+    const s = Math.max(3, 12 - i);
+    d.style.cssText = [
+      'position:fixed', 'border-radius:50%', 'pointer-events:none',
+      'z-index:99999', 'transform:translate(-50%,-50%)',
+      \`width:\${s}px\`, \`height:\${s}px\`,
+      \`background:\${props.color}\`,
+      \`opacity:\${(1 - i / props.count).toFixed(2)}\`,
+    ].join(';');
+    document.body.appendChild(d);
+    dots.push(d);
+  }
+
+  const onMove = (e: MouseEvent) => { pos[0] = { x: e.clientX, y: e.clientY }; };
+  document.addEventListener('mousemove', onMove);
+
+  let raf: number;
+  const loop = () => {
+    for (let i = props.count - 1; i > 0; i--) {
+      pos[i].x += (pos[i - 1].x - pos[i].x) * 0.35;
+      pos[i].y += (pos[i - 1].y - pos[i].y) * 0.35;
+      dots[i].style.left = pos[i].x + 'px';
+      dots[i].style.top = pos[i].y + 'px';
+    }
+    dots[0].style.left = pos[0].x + 'px';
+    dots[0].style.top = pos[0].y + 'px';
+    raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
+
+  onUnmounted(() => {
+    document.body.style.cursor = '';
+    document.removeEventListener('mousemove', onMove);
+    cancelAnimationFrame(raf);
+    dots.forEach(d => d.remove());
+  });
+});
+</script>
+
+<template>
+  <!-- This component injects DOM nodes directly -->
+</template>`,
+
     init(wrap: HTMLElement) {
       wrap.innerHTML = '';
       const N    = 12;
@@ -1191,6 +1253,82 @@ export function MorphBlobCursor({ color = '#f97316' }) {
     }} />
   );
 }`,
+
+    vue: `<!-- MorphBlobCursor.vue -->
+<!-- Usage: <MorphBlobCursor /> in your Vue 3 app -->
+<!-- NOTE: mix-blend-mode:difference works best on non-white backgrounds -->
+<template>
+  <div ref="blobEl" class="cursor-blob" :style="{ background: color }" />
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const props = withDefaults(defineProps<{ color?: string }>(), { color: '#f97316' });
+
+const blobEl = ref<HTMLElement | null>(null);
+let raf: number;
+const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+const cur = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+function onMove(e: MouseEvent) {
+  pos.x = e.clientX; pos.y = e.clientY;
+}
+
+function loop() {
+  cur.x += (pos.x - cur.x) * 0.1;
+  cur.y += (pos.y - cur.y) * 0.1;
+  blobEl.value!.style.left = cur.x + 'px';
+  blobEl.value!.style.top = cur.y + 'px';
+  raf = requestAnimationFrame(loop);
+}
+
+function onEnter() {
+  blobEl.value!.style.width = '36px';
+  blobEl.value!.style.height = '36px';
+}
+
+function onLeave() {
+  blobEl.value!.style.width = '22px';
+  blobEl.value!.style.height = '22px';
+}
+
+onMounted(() => {
+  document.body.style.cursor = 'none';
+  document.addEventListener('mousemove', onMove);
+  raf = requestAnimationFrame(loop);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
+  });
+});
+
+onUnmounted(() => {
+  document.body.style.cursor = '';
+  document.removeEventListener('mousemove', onMove);
+  cancelAnimationFrame(raf);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.removeEventListener('mouseenter', onEnter);
+    el.removeEventListener('mouseleave', onLeave);
+  });
+});
+</script>
+
+<style scoped>
+.cursor-blob {
+  position: fixed; width: 22px; height: 22px; pointer-events: none;
+  z-index: 99999; transform: translate(-50%,-50%);
+  animation: blobMorph 2.5s ease-in-out infinite;
+  mix-blend-mode: difference; transition: width .3s, height .3s;
+}
+
+@keyframes blobMorph {
+  0%,100% { border-radius: 50%; }
+  25%  { border-radius: 60% 40% 55% 45% / 55% 45% 60% 40%; }
+  50%  { border-radius: 40% 60% 45% 55% / 45% 55% 40% 60%; }
+  75%  { border-radius: 55% 45% 40% 60% / 60% 40% 55% 45%; }
+}
+</style>`,
 
     init(wrap: HTMLElement) {
       wrap.innerHTML = `
