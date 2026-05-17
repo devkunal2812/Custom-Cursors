@@ -149,6 +149,86 @@ export function DotRingCursor() {
   );
 }`,
 
+    vue: `<!-- DotRingCursor.vue -->
+<!-- Usage: <DotRingCursor /> in your Vue 3 app -->
+<template>
+  <div ref="dotEl" class="cursor-dot" :style="{ background: color }" />
+  <div ref="ringEl" class="cursor-ring" :style="{ borderColor: \`\${color}80\` }" />
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const props = withDefaults(defineProps<{ color?: string }>(), { color: '#60a5fa' });
+
+const dotEl  = ref<HTMLElement | null>(null);
+const ringEl = ref<HTMLElement | null>(null);
+
+let raf: number;
+const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+const cur = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+function onMove(e: MouseEvent) {
+  pos.x = e.clientX; pos.y = e.clientY;
+  dotEl.value!.style.left = e.clientX + 'px';
+  dotEl.value!.style.top  = e.clientY + 'px';
+}
+
+function loop() {
+  cur.x += (pos.x - cur.x) * 0.12;
+  cur.y += (pos.y - cur.y) * 0.12;
+  ringEl.value!.style.left = cur.x + 'px';
+  ringEl.value!.style.top  = cur.y + 'px';
+  raf = requestAnimationFrame(loop);
+}
+
+function onEnter() { 
+  dotEl.value!.style.width = dotEl.value!.style.height = '6px'; 
+  ringEl.value!.style.width = ringEl.value!.style.height = '52px'; 
+  ringEl.value!.style.borderColor = props.color; 
+}
+
+function onLeave() { 
+  dotEl.value!.style.width = dotEl.value!.style.height = '10px'; 
+  ringEl.value!.style.width = ringEl.value!.style.height = '36px'; 
+  ringEl.value!.style.borderColor = \`\${props.color}80\`; 
+}
+
+onMounted(() => {
+  document.body.style.cursor = 'none';
+  document.addEventListener('mousemove', onMove);
+  raf = requestAnimationFrame(loop);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
+  });
+});
+
+onUnmounted(() => {
+  document.body.style.cursor = '';
+  document.removeEventListener('mousemove', onMove);
+  cancelAnimationFrame(raf);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.removeEventListener('mouseenter', onEnter);
+    el.removeEventListener('mouseleave', onLeave);
+  });
+});
+</script>
+
+<style scoped>
+.cursor-dot {
+  position: fixed; width: 10px; height: 10px; border-radius: 50%;
+  pointer-events: none; z-index: 99999; transform: translate(-50%,-50%);
+  transition: width .2s, height .2s;
+}
+.cursor-ring {
+  position: fixed; width: 36px; height: 36px; border-radius: 50%;
+  border: 2px solid; pointer-events: none; z-index: 99998;
+  transform: translate(-50%,-50%);
+  transition: width .3s, height .3s, border-color .3s;
+}
+</style>`,
+
     init(wrap: HTMLElement) {
       wrap.innerHTML = `
         <div id="cd" style="position:fixed;width:10px;height:10px;background:#60a5fa;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .2s,height .2s"></div>
@@ -482,6 +562,88 @@ export function MagneticCursor() {
   );
 }`,
 
+    vue: `<!-- MagneticCursor.vue -->
+<!-- Usage: <MagneticCursor /> in your Vue 3 app -->
+<!-- Add data-magnetic to buttons/links to activate snap effect -->
+<template>
+  <div ref="magEl" class="cursor-mag" :style="{ background: color }" />
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const props = withDefaults(defineProps<{ color?: string }>(), { color: '#ec4899' });
+
+const magEl = ref<HTMLElement | null>(null);
+let raf: number;
+const cur = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+const target = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+
+function onMove(e: MouseEvent) {
+  target.x = e.clientX; target.y = e.clientY;
+
+  const el = (e.target as HTMLElement).closest('[data-magnetic]') as HTMLElement | null;
+  if (el) {
+    const r = el.getBoundingClientRect();
+    const ox = e.clientX - (r.left + r.width / 2);
+    const oy = e.clientY - (r.top + r.height / 2);
+    el.style.transform = \`translate(\${ox * 0.3}px, \${oy * 0.3}px)\`;
+    target.x = r.left + r.width / 2 + ox * 0.5;
+    target.y = r.top + r.height / 2 + oy * 0.5;
+  }
+}
+
+function loop() {
+  cur.x += (target.x - cur.x) * 0.15;
+  cur.y += (target.y - cur.y) * 0.15;
+  magEl.value!.style.left = cur.x + 'px';
+  magEl.value!.style.top = cur.y + 'px';
+  raf = requestAnimationFrame(loop);
+}
+
+function onEnter(e: Event) {
+  if (!(e.target as HTMLElement).closest?.('[data-magnetic]')) return;
+  magEl.value!.style.width = '40px';
+  magEl.value!.style.height = '40px';
+  magEl.value!.style.background = 'rgba(236,72,153,0.2)';
+  magEl.value!.style.border = '2px solid #ec4899';
+}
+
+function onLeave(e: Event) {
+  const el = (e.target as HTMLElement).closest?.('[data-magnetic]') as HTMLElement | null;
+  if (el) el.style.transform = '';
+  if (!(e.target as HTMLElement).closest?.('[data-magnetic]')) return;
+  magEl.value!.style.width = '14px';
+  magEl.value!.style.height = '14px';
+  magEl.value!.style.background = props.color;
+  magEl.value!.style.border = 'none';
+}
+
+onMounted(() => {
+  document.body.style.cursor = 'none';
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseenter', onEnter, true);
+  document.addEventListener('mouseleave', onLeave, true);
+  raf = requestAnimationFrame(loop);
+});
+
+onUnmounted(() => {
+  document.body.style.cursor = '';
+  document.removeEventListener('mousemove', onMove);
+  document.removeEventListener('mouseenter', onEnter, true);
+  document.removeEventListener('mouseleave', onLeave, true);
+  cancelAnimationFrame(raf);
+});
+</script>
+
+<style scoped>
+.cursor-mag {
+  position: fixed; width: 14px; height: 14px; border-radius: 50%;
+  pointer-events: none; z-index: 99999; transform: translate(-50%,-50%);
+  transition: width .3s, height .3s, background .3s, border .3s;
+}
+</style>`,
+
     init(wrap: HTMLElement) {
       wrap.innerHTML = `<div id="cmag" style="position:fixed;width:14px;height:14px;background:#ec4899;border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:width .3s,height .3s,background .3s"></div>`;
       const mag = document.getElementById('cmag') as HTMLElement;
@@ -598,6 +760,85 @@ export function CrosshairCursor({ color = '#34d399', size = 28 }) {
     </div>
   );
 }`,
+
+    vue: `<!-- CrosshairCursor.vue -->
+<!-- Usage: <CrosshairCursor /> in your Vue 3 app -->
+<template>
+  <div ref="crossEl" class="cursor-cross">
+    <div ref="hEl" class="cross-h" :style="{ background: color }" />
+    <div ref="vEl" class="cross-v" :style="{ background: color }" />
+    <div class="cross-center" :style="{ background: color }" />
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const props = withDefaults(defineProps<{ color?: string; size?: number }>(), { 
+  color: '#34d399',
+  size: 28
+});
+
+const crossEl = ref<HTMLElement | null>(null);
+const hEl = ref<HTMLElement | null>(null);
+const vEl = ref<HTMLElement | null>(null);
+
+function onMove(e: MouseEvent) {
+  crossEl.value!.style.left = e.clientX + 'px';
+  crossEl.value!.style.top = e.clientY + 'px';
+}
+
+function onEnter() {
+  hEl.value!.style.width = (props.size * 1.57) + 'px';
+  vEl.value!.style.height = (props.size * 1.57) + 'px';
+}
+
+function onLeave() {
+  hEl.value!.style.width = props.size + 'px';
+  vEl.value!.style.height = props.size + 'px';
+}
+
+onMounted(() => {
+  document.body.style.cursor = 'none';
+  document.addEventListener('mousemove', onMove);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.addEventListener('mouseenter', onEnter);
+    el.addEventListener('mouseleave', onLeave);
+  });
+});
+
+onUnmounted(() => {
+  document.body.style.cursor = '';
+  document.removeEventListener('mousemove', onMove);
+  document.querySelectorAll<HTMLElement>('a, button, [data-cursor]').forEach(el => {
+    el.removeEventListener('mouseenter', onEnter);
+    el.removeEventListener('mouseleave', onLeave);
+  });
+});
+</script>
+
+<style scoped>
+.cursor-cross {
+  position: fixed; pointer-events: none; z-index: 99999;
+  transform: translate(-50%,-50%);
+}
+.cross-h, .cross-v {
+  position: absolute; border-radius: 2px;
+  transition: width .2s, height .2s;
+}
+.cross-h {
+  width: 28px; height: 2px; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.cross-v {
+  width: 2px; height: 28px; top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+.cross-center {
+  position: absolute; width: 5px; height: 5px; border-radius: 50%;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+}
+</style>`,
 
     init(wrap: HTMLElement) {
       wrap.innerHTML = `

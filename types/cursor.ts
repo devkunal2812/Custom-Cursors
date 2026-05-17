@@ -14,6 +14,7 @@ export interface CursorDefinition {
   html: string;
   js: string;
   react: string;
+  vue?: string;  // Optional for now
   init: (wrap: HTMLElement) => CursorHandlers;
 }
 

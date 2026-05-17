@@ -12,7 +12,7 @@ import styles from './cursor.module.css';
 export default function CursorPage({ params }: { params: { id: string } }) {
   const cursor = CURSORS.find((c) => c.id === params.id);
   const [activeCursor] = useState<string>(params.id);
-  const [activeTab, setActiveTab] = useState<'html' | 'css' | 'js' | 'react'>('html');
+  const [activeTab, setActiveTab] = useState<'html' | 'css' | 'js' | 'react' | 'vue'>('html');
   const [copied, setCopied] = useState(false);
 
   if (!cursor) {
@@ -35,6 +35,25 @@ export default function CursorPage({ params }: { params: { id: string } }) {
         return cursor.js;
       case 'react':
         return cursor.react;
+      case 'vue':
+        return cursor.vue || `<!-- Vue implementation coming soon! -->
+<!-- For now, you can adapt the React code above to Vue 3 Composition API -->
+<!-- Or check the data/vue.ts file in the repository for reference implementations -->
+
+<template>
+  <!-- Vue component template will go here -->
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue';
+
+// Component logic here
+// See data/vue.ts for complete implementations
+</script>
+
+<style scoped>
+/* Component styles here */
+</style>`;
       default:
         return cursor.html;
     }
@@ -84,6 +103,12 @@ export default function CursorPage({ params }: { params: { id: string } }) {
             >
               React
             </button>
+            <button 
+              className={`${styles.tab} ${activeTab === 'vue' ? styles.active : ''}`}
+              onClick={() => setActiveTab('vue')}
+            >
+              Vue
+            </button>
           </div>
 
           <div className={styles.codeBlock}>
@@ -102,24 +127,68 @@ export default function CursorPage({ params }: { params: { id: string } }) {
 
         <div className={styles.usage}>
           <h2>How to Use</h2>
-          <ol className={styles.steps}>
-            <li>
-              <strong>Copy the HTML</strong>
-              <p>Add the HTML structure before your closing <code>&lt;/body&gt;</code> tag</p>
-            </li>
-            <li>
-              <strong>Add the CSS</strong>
-              <p>Include the CSS in your stylesheet or <code>&lt;style&gt;</code> tag</p>
-            </li>
-            <li>
-              <strong>Include the JavaScript</strong>
-              <p>Add the JavaScript code in a <code>&lt;script&gt;</code> tag or external file</p>
-            </li>
-            <li>
-              <strong>Test it out</strong>
-              <p>Move your mouse to see the custom cursor in action!</p>
-            </li>
-          </ol>
+          {activeTab === 'react' ? (
+            <ol className={styles.steps}>
+              <li>
+                <strong>Install React</strong>
+                <p>Make sure you have React installed in your project</p>
+              </li>
+              <li>
+                <strong>Copy the Component</strong>
+                <p>Copy the React component code from the code block above</p>
+              </li>
+              <li>
+                <strong>Import and Use</strong>
+                <p>Import the component in your app: <code>import {`{${cursor.name.replace(/\s+/g, '')}Cursor}`} from './cursors'</code></p>
+              </li>
+              <li>
+                <strong>Add to Your App</strong>
+                <p>Place <code>{`<${cursor.name.replace(/\s+/g, '')}Cursor />`}</code> at the root level of your app (outside scrollable containers)</p>
+              </li>
+            </ol>
+          ) : activeTab === 'vue' ? (
+            <ol className={styles.steps}>
+              <li>
+                <strong>Install Vue 3</strong>
+                <p>Make sure you have Vue 3 with Composition API installed</p>
+              </li>
+              <li>
+                <strong>Create Component File</strong>
+                <p>Create a new file: <code>{cursor.name.replace(/\s+/g, '')}Cursor.vue</code></p>
+              </li>
+              <li>
+                <strong>Copy the Code</strong>
+                <p>Copy the Vue component code from the code block above into your .vue file</p>
+              </li>
+              <li>
+                <strong>Import and Use</strong>
+                <p>Import in your app: <code>import {cursor.name.replace(/\s+/g, '')}Cursor from './cursors/{cursor.name.replace(/\s+/g, '')}Cursor.vue'</code></p>
+              </li>
+              <li>
+                <strong>Add to Template</strong>
+                <p>Use in your template: <code>{`<${cursor.name.replace(/\s+/g, '')}Cursor />`}</code></p>
+              </li>
+            </ol>
+          ) : (
+            <ol className={styles.steps}>
+              <li>
+                <strong>Copy the HTML</strong>
+                <p>Add the HTML structure before your closing <code>&lt;/body&gt;</code> tag</p>
+              </li>
+              <li>
+                <strong>Add the CSS</strong>
+                <p>Include the CSS in your stylesheet or <code>&lt;style&gt;</code> tag</p>
+              </li>
+              <li>
+                <strong>Include the JavaScript</strong>
+                <p>Add the JavaScript code in a <code>&lt;script&gt;</code> tag or external file</p>
+              </li>
+              <li>
+                <strong>Test it out</strong>
+                <p>Move your mouse to see the custom cursor in action!</p>
+              </li>
+            </ol>
+          )}
         </div>
 
         <div className={styles.customization}>
