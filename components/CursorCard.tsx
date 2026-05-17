@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import type { CursorDefinition } from '@/types/cursor';
 import styles from './CursorCard.module.css';
 
@@ -44,13 +43,6 @@ export default function CursorCard({ cursor, isActive, onTry }: CursorCardProps)
           >
             Try It
           </button>
-          <Link 
-            href={`/cursor/${cursor.id}`}
-            className={styles.btnCode}
-            aria-label={`View code for ${cursor.name} cursor`}
-          >
-            {'{ }'} Code
-          </Link>
         </div>
       </div>
     </article>
