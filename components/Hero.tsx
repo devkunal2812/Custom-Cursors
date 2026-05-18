@@ -46,7 +46,6 @@ export default function Hero() {
 
       {/* Main content */}
       <div className={styles.content}>
-        <div className={styles.brand}>Kunal's Build</div>
         <h1 className={styles.title}>
           Custom Cursor
           <br />
@@ -55,10 +54,18 @@ export default function Hero() {
         <p className={styles.subtitle}>
           12+ Interactive Cursor Effects for Modern Websites
         </p>
-        <div className={styles.buttons}>
-          <button className={styles.btn} style={{ background: '#60a5fa' }}></button>
-          <button className={styles.btn} style={{ background: '#a78bfa' }}></button>
-          <button className={styles.btn} style={{ background: '#34d399' }}></button>
+        
+        {/* Glowing chips */}
+        <div className={styles.chips}>
+          <div className={styles.chip} data-color="green">
+            Next.js 14
+          </div>
+          <div className={styles.chip} data-color="blue">
+            Try Live Demo
+          </div>
+          <div className={styles.chip} data-color="purple">
+            Free & Open Source
+          </div>
         </div>
       </div>
     </section>
