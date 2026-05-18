@@ -1,38 +1,44 @@
-# 🎨 Kunal's Build - Custom Cursor Library
+<div align="center">
 
-> **12+ stunning custom cursor effects for modern websites**  
-> Try live demos · Copy code snippets · Zero dependencies
+# ✦ Custom Cursors
 
+**A modern collection of 12+ beautiful, animated cursor effects for websites.**
+Try live demos · Copy production-ready code · Zero dependencies
+
+[![Live Site](https://img.shields.io/badge/Live_Site-custom--cursors.tech-7c6cff?style=flat-square&logo=vercel)](https://www.custom-cursors.tech/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
+[![Stars](https://img.shields.io/github/stars/devkunal2812/Custom-Cursors?style=flat-square)](https://github.com/devkunal2812/Custom-Cursors/stargazers)
+
+<br/>
+
+> 🔵 Dot Ring · 💜 Glow Orb · 💗 Magnetic Snap · 💚 Crosshair · 💛 Particle Trail · and 7 more...
+
+**[→ Try it Live](https://www.custom-cursors.tech/) · [→ Browse Issues](https://github.com/devkunal2812/Custom-Cursors/issues) · [→ Contributing Guide](CONTRIBUTING.md)**
+
+</div>
 
 ---
 
-## ✨ Features
+## ✨ What is Custom Cursors?
 
-- 🎯 **12 Unique Cursors** - Dot Ring, Glow Orb, Magnetic Snap, Crosshair, Particle Trail & more
-- 🎨 **Rainbow Colors** - Each cursor has its own vibrant color scheme
-- 🚀 **Live Demos** - Try every cursor interactively before using
-- 📦 **Copy & Paste** - Get HTML, CSS, JavaScript, and React code
-- 🎭 **Zero Dependencies** - Pure vanilla JavaScript implementations
-- 📱 **Responsive** - Automatically disabled on mobile devices
-- ♿ **Accessible** - ARIA labels and semantic HTML
-- 🔍 **SEO Optimized** - Complete meta tags and structured data
+Custom Cursors is an interactive web project showcasing **12+ production-ready animated cursor effects**. Each cursor comes with:
 
----
+- **Live interactive demo** — see it in action before using it
+- **Copy-paste code** — HTML/CSS/JS and React snippets included
+- **Zero dependencies** — pure vanilla JavaScript implementations
+- **Mobile-aware** — automatically disabled on touch devices
 
-## 🎬 Demo
-
-**Live Site:** [custom-cursors.tech](https://custom-cursors.tech)
+Whether you're building a portfolio, creative agency site, or SaaS dashboard — grab a cursor and make your UI unforgettable.
 
 ---
 
 ## 🌈 Available Cursors
 
-| Cursor | Color | Description |
-|--------|-------|-------------|
+| Cursor | Color | Effect |
+|--------|-------|--------|
 | 🔵 **Dot + Ring** | Blue | Classic two-layer cursor with smooth trailing |
 | 💜 **Glow Orb** | Purple | Soft glowing orb with luminous trail |
 | 💗 **Magnetic Snap** | Pink | Snaps toward interactive elements |
@@ -50,35 +56,34 @@
 
 ## 🚀 Quick Start
 
-### Installation
+### Run Locally
 
 ```bash
-# Clone the repository
+# Clone the repo
 git clone https://github.com/devkunal2812/Custom-Cursors.git
-
-# Navigate to project
 cd Custom-Cursors
 
 # Install dependencies
 npm install
 
-# Run development server
+# Start the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000) — you're ready.
 
-### Using a Cursor in Your Project
+### Use a Cursor in Your Own Project
 
-1. **Click "Code" button** on any cursor
-2. **Choose your format**: HTML/CSS/JS or React
-3. **Copy the code snippets**
-4. **Paste into your project**
+1. Visit [custom-cursors.tech](https://www.custom-cursors.tech/)
+2. Click any cursor card to see it live
+3. Hit the **Code** button
+4. Choose **HTML/CSS/JS** or **React**
+5. Copy and paste into your project
 
-#### Example: Dot + Ring Cursor
+#### Example — Dot Ring (Vanilla JS)
 
 ```html
-<!-- HTML -->
+<!-- HTML: place just before </body> -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
 ```
@@ -86,38 +91,65 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ```css
 /* CSS */
 body { cursor: none; }
+
 #cursor-dot {
   position: fixed;
-  width: 10px;
-  height: 10px;
+  width: 10px; height: 10px;
   background: #60a5fa;
   border-radius: 50%;
   pointer-events: none;
   z-index: 99999;
   transform: translate(-50%, -50%);
+  transition: transform 0.1s ease;
 }
-/* ... more styles */
+
+#cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 2px solid #60a5fa;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
+}
 ```
 
 ```javascript
 // JavaScript
-const dot = document.getElementById('cursor-dot');
+const dot  = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+
+// Use requestAnimationFrame for smooth 60fps tracking
+let mouseX = 0, mouseY = 0;
+
 document.addEventListener('mousemove', e => {
-  dot.style.left = e.clientX + 'px';
-  dot.style.top = e.clientY + 'px';
-});
-// ... more code
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+}, { passive: true });
+
+const animate = () => {
+  dot.style.left  = mouseX + 'px';
+  dot.style.top   = mouseY + 'px';
+  ring.style.left = mouseX + 'px';
+  ring.style.top  = mouseY + 'px';
+  requestAnimationFrame(animate);
+};
+
+animate();
 ```
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
-- **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** CSS Modules
-- **Fonts:** Google Fonts (DM Sans, DM Mono, Syne)
-- **Deployment:** Vercel / Netlify ready
+| Technology | Purpose |
+|-----------|---------|
+| [Next.js 14](https://nextjs.org/) (App Router) | Framework |
+| [TypeScript 5](https://www.typescriptlang.org/) | Type safety |
+| CSS Modules | Component scoped styles |
+| Google Fonts (DM Sans, DM Mono, Syne) | Typography |
+| Vercel | Deployment |
 
 ---
 
@@ -126,140 +158,112 @@ document.addEventListener('mousemove', e => {
 ```
 Custom-Cursors/
 ├── app/
-│   ├── layout.tsx          # Root layout with SEO metadata
-│   ├── page.tsx            # Main page with structured data
-│   ├── sitemap.ts          # Dynamic sitemap generator
-│   └── globals.css         # Global styles
+│   ├── layout.tsx       # Root layout + SEO metadata
+│   ├── page.tsx         # Main page with structured data
+│   ├── sitemap.ts       # Dynamic sitemap
+│   └── globals.css      # Global styles + CSS variables
+│
 ├── components/
-│   ├── Header.tsx          # Site header
-│   ├── Hero.tsx            # Hero section
-│   ├── CursorGrid.tsx      # Cursor cards grid
-│   ├── CursorCard.tsx      # Individual cursor card
-│   ├── DemoZone.tsx        # Interactive demo area
-│   ├── CodeModal.tsx       # Code snippet modal
-│   ├── CursorWrapper.tsx   # Cursor effect wrapper
-│   └── Footer.tsx          # Site footer
+│   ├── Header.tsx       # Site navigation
+│   ├── Hero.tsx         # Hero section
+│   ├── CursorGrid.tsx   # Responsive cursor card grid
+│   ├── CursorCard.tsx   # Individual cursor card + demo
+│   ├── DemoZone.tsx     # Interactive cursor preview area
+│   ├── CodeModal.tsx    # Code snippet modal
+│   ├── CursorWrapper.tsx# Cursor effect renderer
+│   └── Footer.tsx       # Footer
+│
 ├── data/
-│   └── cursors.ts          # Cursor definitions & code
+│   └── cursors.ts       # All cursor definitions + code snippets
+│
 ├── types/
-│   └── cursor.ts           # TypeScript types
+│   └── cursor.ts        # TypeScript interfaces
+│
 ├── public/
-│   ├── robots.txt          # SEO robots file
-│   └── manifest.json       # PWA manifest
+│   ├── robots.txt
+│   └── manifest.json
+│
+├── CONTRIBUTING.md      # Contributor guide
 └── package.json
 ```
 
 ---
 
-## 🎨 Customization
-
-### Change Cursor Colors
-
-Edit `data/cursors.ts`:
-
-```typescript
-{
-  id: 'dot-ring',
-  name: 'Dot + Ring',
-  accent: '#60a5fa', // Change this color
-  // ...
-}
-```
-
-### Add New Cursor
-
-1. Add cursor definition to `data/cursors.ts`
-2. Include `init()` function with cursor logic
-3. Provide CSS, HTML, JS, and React code snippets
-
----
-
-## 🔍 SEO Features
-
-- ✅ Comprehensive meta tags
-- ✅ Open Graph (Facebook/LinkedIn)
-- ✅ Twitter Cards
-- ✅ Structured Data (JSON-LD)
-  - WebApplication schema
-  - BreadcrumbList schema
-  - FAQPage schema
-- ✅ Semantic HTML
-- ✅ ARIA labels
-- ✅ robots.txt
-- ✅ Dynamic sitemap
-- ✅ PWA manifest
-
-**SEO Score: 91/100** 🎉
-
----
-
-## 📱 Browser Support
-
-| Browser | Version |
-|---------|---------|
-| Chrome | ✅ Latest |
-| Firefox | ✅ Latest |
-| Safari | ✅ Latest |
-| Edge | ✅ Latest |
-| Opera | ✅ Latest |
-
-**Note:** Custom cursors are automatically disabled on mobile/touch devices.
-
----
-
 ## 🤝 Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are very welcome! This project is actively looking for:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-cursor`)
-3. Commit your changes (`git commit -m 'Add amazing cursor'`)
-4. Push to the branch (`git push origin feature/amazing-cursor`)
-5. Open a Pull Request
+- 🎨 New cursor effect implementations
+- ⚡ Performance improvements
+- ♿ Accessibility enhancements
+- 📱 Mobile/responsive fixes
+- 📝 Documentation improvements
 
----
+**Read the full guide: [CONTRIBUTING.md](CONTRIBUTING.md)**
 
-## 📝 License
+Quick steps:
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+```bash
+# Fork → Clone → Branch → Code → PR
 
----
+git checkout -b feat/your-amazing-cursor
+git commit -m "feat(cursor): add amazing new cursor effect"
+git push origin feat/your-amazing-cursor
+# Then open a Pull Request on GitHub
+```
 
-## 🙏 Acknowledgments
-
-- Inspired by modern web design trends
-- Built with ❤️ using Next.js
-- Fonts from Google Fonts
-- Icons and design patterns from the community
-
----
-
-## 📧 Contact
-
-**Kunal** - [@devkunal2812](https://github.com/devkunal2812)
-
-**Project Link:** [https://github.com/devkunal2812/Custom-Cursors](https://github.com/devkunal2812/Custom-Cursors)
-
----
-
-## ⭐ Show Your Support
-
-If you found this project helpful, please give it a ⭐ on GitHub!
+[→ View Open Issues](https://github.com/devkunal2812/Custom-Cursors/issues) — look for `good first issue` labels to get started!
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] Add more cursor effects (12+ total)
-- [x] Create individual cursor detail pages
-- [x] Add documentation page
-- [ ] Add video tutorials
-- [ ] Implement cursor customizer tool
-- [ ] Add dark/light theme toggle
-- [ ] Create npm package for easy installation
-- [ ] Add cursor performance metrics
-- [ ] Build cursor animation timeline editor
+- [x] 12 cursor effects with live demos
+- [x] Copy-paste HTML/CSS/JS + React code
+- [x] SEO optimized (score 91/100)
+- [x] Mobile-safe (auto-disabled on touch)
+- [ ] Dark / light mode toggle
+- [ ] Category filtering system
+- [ ] Page loading animation
+- [ ] Cursor customizer tool (color, size, speed)
+- [ ] npm package for easy installation
+- [ ] Animation timeline editor
 
 ---
 
-**Made with 💙 by Kunal | Visit: [custom-cursors.tech](https://custom-cursors.tech)**
+## 📱 Browser Support
+
+| Browser | Status |
+|---------|--------|
+| Chrome (latest) | ✅ Supported |
+| Firefox (latest) | ✅ Supported |
+| Safari (latest) | ✅ Supported |
+| Edge (latest) | ✅ Supported |
+| Mobile / Touch | ✅ Gracefully disabled |
+
+---
+
+## 📝 License
+
+MIT License — see [LICENSE](LICENSE) for details.
+Free to use in personal and commercial projects.
+
+---
+
+## 📧 Contact & Support
+
+**Kunal** — [@devkunal2812](https://github.com/devkunal2812)
+
+- 🐛 Found a bug? [Open an issue](https://github.com/devkunal2812/Custom-Cursors/issues)
+- 💡 Have an idea? [Start a discussion](https://github.com/devkunal2812/Custom-Cursors/discussions)
+- ⭐ Like the project? Give it a star — it helps a lot!
+
+---
+
+<div align="center">
+
+**Made with 💙 by Kunal**
+
+[custom-cursors.tech](https://www.custom-cursors.tech/) · [GitHub](https://github.com/devkunal2812/Custom-Cursors)
+
+</div>
