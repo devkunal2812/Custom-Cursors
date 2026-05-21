@@ -1,33 +1,12 @@
-# robots.txt for kunal's build - Custom Cursor Library
+# robots.txt — custom-cursors.tech
+# FIXED: Removed redundant per-bot rules (wasteful, not needed)
+# One User-agent: * block covers all bots including Google/Bing/Yandex
 
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /_next/
 
-# Sitemaps
+# Crawl-delay: 0 is fine, no need to set it (default is 0 anyway)
+
 Sitemap: https://custom-cursors.tech/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 0
-
-# Disallow admin or private paths (if any)
-# Disallow: /admin/
-# Disallow: /private/
-
-# Allow all major search engines
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
