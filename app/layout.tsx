@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import DeviceGuard from '@/components/DeviceGuard';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -95,7 +96,11 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a0a0f" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </head>
-      <body>{children}</body>
+      <body>
+        {/* DeviceGuard runs on every route: redirects mobile/tablet users
+            to /desktop-only and keeps desktop users off that page. */}
+        <DeviceGuard>{children}</DeviceGuard>
+      </body>
     </html>
   );
 }
