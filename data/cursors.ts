@@ -49,8 +49,8 @@ document.addEventListener('mousemove', e => {
 (function lerp() {
   rx += (mx - rx) * 0.12;
   ry += (my - ry) * 0.12;
-  dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-  ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+  dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0) translate(-50%, -50%)';
+  ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0) translate(-50%, -50%)';
   requestAnimationFrame(lerp);
 })();
 
@@ -242,8 +242,8 @@ onUnmounted(() => {
       document.onmousemove = e => { mx = e.clientX; my = e.clientY; };
       const lerp = () => {
         rx += (mx - rx) * .12; ry += (my - ry) * .12;
-        dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-        ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+        dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0) translate(-50%, -50%)';
+        ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0) translate(-50%, -50%)';
         requestAnimationFrame(lerp);
       };
       lerp();
@@ -1727,7 +1727,7 @@ export function RippleCursor({ color = '#14b8a6' }) {
       let ripples: R[] = [], lx = 0, ly = 0, lt = 0;
 
       document.onmousemove = e => {
-        dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+        dot.style.transform = 'translate3d(' + e.clientX + 'px, ' + e.clientY + 'px, 0) translate(-50%, -50%)';
         if (Date.now() - lt > 100 && (Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly)) > 10) {
           ripples.push(new R(e.clientX, e.clientY)); lx = e.clientX; ly = e.clientY; lt = Date.now();
         }
@@ -1907,8 +1907,8 @@ export function TextLabelCursor() {
       document.onmousemove = e => { mx = e.clientX; my = e.clientY; };
       const lerp = () => {
         lx += (mx - lx) * .1; ly += (my - ly) * .1;
-        dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-        label.style.transform = `translate3d(${lx}px, ${ly}px, 0) translate(-50%, -50%)`;
+        dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0) translate(-50%, -50%)';
+        label.style.transform = 'translate3d(' + lx + 'px, ' + ly + 'px, 0) translate(-50%, -50%)';
         requestAnimationFrame(lerp);
       };
       lerp();
