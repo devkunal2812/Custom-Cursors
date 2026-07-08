@@ -20,15 +20,17 @@ body { cursor: none; }
   position: fixed; width: 10px; height: 10px;
   background: var(--cur-dot); border-radius: 50%;
   pointer-events: none; z-index: 99999;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   transition: width .2s, height .2s, background .2s;
+  will-change: transform;
 }
 #cursor-ring {
   position: fixed; width: 36px; height: 36px;
   border: 2px solid var(--cur-ring); border-radius: 50%;
   pointer-events: none; z-index: 99998;
-  transform: translate(-50%, -50%);
+  transform: translate3d(-50%, -50%, 0);
   transition: width .3s, height .3s, border-color .3s;
+  will-change: transform;
 }`,
 
     html: `<!-- Paste before </body> -->
@@ -42,15 +44,13 @@ let rx = 0, ry = 0, mx = 0, my = 0;
 
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
-  dot.style.left = mx + 'px';
-  dot.style.top  = my + 'px';
 });
 
 (function lerp() {
   rx += (mx - rx) * 0.12;
   ry += (my - ry) * 0.12;
-  ring.style.left = rx + 'px';
-  ring.style.top  = ry + 'px';
+  dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0) translate(-50%, -50%)';
+  ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0) translate(-50%, -50%)';
   requestAnimationFrame(lerp);
 })();
 
@@ -236,9 +236,16 @@ onUnmounted(() => {
       `;
       const dot  = document.getElementById('cd') as HTMLElement;
       const ring = document.getElementById('cr') as HTMLElement;
+      dot.style.willChange = 'transform';
+      ring.style.willChange = 'transform';
       let rx = 0, ry = 0, mx = 0, my = 0;
-      document.onmousemove = e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; };
-      const lerp = () => { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(lerp); };
+      document.onmousemove = e => { mx = e.clientX; my = e.clientY; };
+      const lerp = () => {
+        rx += (mx - rx) * .12; ry += (my - ry) * .12;
+        dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0) translate(-50%, -50%)';
+        ring.style.transform = 'translate3d(' + rx + 'px, ' + ry + 'px, 0) translate(-50%, -50%)';
+        requestAnimationFrame(lerp);
+      };
       lerp();
       return {
         enter: () => { dot.style.width = '6px'; dot.style.height = '6px'; ring.style.width = '52px'; ring.style.height = '52px'; ring.style.borderColor = '#60a5fa'; },
@@ -1720,7 +1727,7 @@ export function RippleCursor({ color = '#14b8a6' }) {
       let ripples: R[] = [], lx = 0, ly = 0, lt = 0;
 
       document.onmousemove = e => {
-        dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+        dot.style.transform = 'translate3d(' + e.clientX + 'px, ' + e.clientY + 'px, 0) translate(-50%, -50%)';
         if (Date.now() - lt > 100 && (Math.abs(e.clientX - lx) + Math.abs(e.clientY - ly)) > 10) {
           ripples.push(new R(e.clientX, e.clientY)); lx = e.clientX; ly = e.clientY; lt = Date.now();
         }
@@ -1894,9 +1901,16 @@ export function TextLabelCursor() {
       `;
       const label = document.getElementById('clabel') as HTMLElement;
       const dot   = document.getElementById('cdotl') as HTMLElement;
+      dot.style.willChange = 'transform';
+      label.style.willChange = 'transform';
       let lx = 0, ly = 0, mx = 0, my = 0;
-      document.onmousemove = e => { mx = e.clientX; my = e.clientY; dot.style.left = mx + 'px'; dot.style.top = my + 'px'; };
-      const lerp = () => { lx += (mx - lx) * .1; ly += (my - ly) * .1; label.style.left = lx + 'px'; label.style.top = ly + 'px'; requestAnimationFrame(lerp); };
+      document.onmousemove = e => { mx = e.clientX; my = e.clientY; };
+      const lerp = () => {
+        lx += (mx - lx) * .1; ly += (my - ly) * .1;
+        dot.style.transform = 'translate3d(' + mx + 'px, ' + my + 'px, 0) translate(-50%, -50%)';
+        label.style.transform = 'translate3d(' + lx + 'px, ' + ly + 'px, 0) translate(-50%, -50%)';
+        requestAnimationFrame(lerp);
+      };
       lerp();
       return {
         enter: () => { label.style.opacity = '1'; },
